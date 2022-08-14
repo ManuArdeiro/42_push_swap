@@ -33,7 +33,10 @@ int    ft_ordering_stack(t_element *stack_a, int argc)
         return (ft_print_error());
     ft_init_stack_b(stack_b, argc);
     if (argc > 4)
-        ft_method(stack_a, stack_b, &moves, argc);
+    {
+        if (ft_method(stack_a, stack_b, &moves, argc) == -1)
+            return (-1);
+    }
     else if (argc <= 4)
         ft_three_elements(stack_a, stack_b, &moves, argc);
     free (stack_b);

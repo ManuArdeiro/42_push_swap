@@ -4,7 +4,8 @@
         "ft_printf.h": "c",
         "libft.h": "c",
         "random": "c",
-        "limits": "c"
+        "limits": "c",
+        "*.tcc": "c"
     },
     "github.gitProtocol": "ssh",
     "cmake.sourceDirectory": "${workspaceFolder}/push_swap_visualizer/build/_deps/imgui-sfml-src"

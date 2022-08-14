@@ -28,11 +28,11 @@
     3.  It will work as long as number of hits is fewer than elements.
 */
 
-void    ft_method(t_element *stack_a, t_element *stack_b, int *moves, int argc)
+int     ft_method(t_element *stack_a, t_element *stack_b, int *moves, int argc)
 {
     while (ft_hits_count(stack_a) < argc - 2)
     {
-                                /*int i = 0;
+                                int i = 0;
                                 while (i < argc - 90)
                                 {
                                     ft_printf("Stack A -> i = %d value = %d pos = %d empty = %c      Stack B -> value = %d pos = %d empty = %c\n",
@@ -48,33 +48,17 @@ void    ft_method(t_element *stack_a, t_element *stack_b, int *moves, int argc)
                                     i++;
                                 }
                                 ft_printf("elementos a: %d hits = %d argc = %d\n", ft_stack_last_element(stack_a), ft_hits_count(stack_a), argc);
-                                printf("moves = %d\n", *moves);*/
-       if (ft_hits_count(stack_a) == ft_stack_last_element(stack_a))
-            ft_returning_from_b(stack_a, stack_b, moves); 
-                                        /*i = 0;
-                                while (i < argc - 1)
-                                {
-                                    ft_printf("Stack A -> i = %d value = %d pos = %d empty = %c      Stack B -> value = %d pos = %d empty = %c\n",
-                                    i, stack_a[i].value, stack_a[i].pos, stack_a[i].empty, stack_b[i].value, stack_b[i].pos, stack_b[i].empty);
-                                    i++;
-                                }
-                                ft_printf("elementos a: %d hits = %d argc = %d\n", ft_stack_last_element(stack_a), ft_hits_count(stack_a), argc);*/
+                                printf("moves = %d\n", *moves);
+        if (ft_hits_count(stack_a) == ft_stack_last_element(stack_a))
+            ft_returning_from_b(stack_a, stack_b, moves);
         else if (ft_next_step(stack_a, stack_b, moves) < 0)
-            return ;
-                                /*i = 0;
-                                while (i < argc - 1)
-                                {
-                                    ft_printf("Stack A -> i = %d value = %d pos = %d empty = %c      Stack B -> value = %d pos = %d empty = %c\n",
-                                    i, stack_a[i].value, stack_a[i].pos, stack_a[i].empty, stack_b[i].value, stack_b[i].pos, stack_b[i].empty);
-                                    i++;
-                                }
-                                ft_printf("elementos a: %d hits = %d argc = %d\n", ft_stack_last_element(stack_a), ft_hits_count(stack_a), argc);*/
+            return (-1);
         if (ft_hits_count(stack_a) == argc - 2)
-            return ;
+            return (0);
         else if (ft_hits_count(stack_a) == ft_stack_last_element(stack_a))
             ft_returning_from_b(stack_a, stack_b, moves);
     }
-    return ;
+    return (0);
 }
 
 /*  ft_next_step function:
@@ -92,8 +76,6 @@ int ft_next_step(t_element *stack_a, t_element *stack_b, int *moves)
         ft_rotate_a(stack_a, moves, 'Y');
     else if (last_b <= 0)
         ft_push_b(stack_a,stack_b, moves);
-    /*else if (stack_a[0].pos > stack_a[1].pos && ft_stack_last_element(stack_b) != -1)
-        ft_swap_a(stack_a, moves, 'Y');*/
     else if (stack_a[0].pos > stack_b[0].pos)
     {
         if (stack_a[0].pos < stack_b[last_b].pos)
@@ -111,78 +93,34 @@ int ft_next_step(t_element *stack_a, t_element *stack_b, int *moves)
 int    ft_case_selection(t_element *stack_a, t_element *stack_b, int *moves)
 {
     int *move;
-    int *rotate;
-    int i;
-    int **better;
 
-    i = 1;
     move = malloc(sizeof(int) * 2);
-    if (!move)
+    if(!move)
         return (ft_print_error());
     ft_lowest_number(ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a),
         ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b), move);
     /*printf("ft_returning_b = %d, ft_dist_a_down = %d, ft_dist_b_up = %d, ft_dist_b_down = %d\n",
         ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a), ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b));*/
-    better = malloc(sizeof(int *) * move[0]);
-    if (!better)
-        return (ft_print_error());
-    better[0] = malloc(sizeof(int) * 2);
-    better[0][0] = 0;
-    better[0][1] = move[0];
-    //printf("Antes. move[0] = %d move[1] = %d\n", better[0][1], move[1]);
-    if (better[0][1] > 3)
+    if(move[0] < 4)
+        return (ft_option_selection(stack_a, stack_b, moves, move) < 0);
+    else if (move[0] > 3)
     {
-    //printf("Comienzo. better[0][1] = %d\n", better[0][1]);
-        while (i < better[0][1])
+        if(ft_find_better(stack_a, stack_b, moves) < 0)
         {
-            better[i] = malloc(sizeof(int) * 2);
-            if (!better[i])
-                return (ft_print_error());
-            ft_rotate_a(stack_a, moves, 'N');
             ft_lowest_number(ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a),
                 ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b), move);
-            better[i][0] = i;
-            better[i][1] = move[0];
-            i++;
+            printf("ft_returning_b = %d, ft_dist_a_down = %d, ft_dist_b_up = %d, ft_dist_b_down = %d\n",
+                ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a), ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b));
+            return (ft_option_selection(stack_a, stack_b, moves, move) < 0);
         }
-        i = 1;
-        while (i < better[0][1])
-        {
-            ft_reverse_rotate_a(stack_a, moves, 'N');
-            i++;
-        }
-        //printf("Posición inicial.\n");
-        i = 1;
-        rotate = malloc(sizeof(int) * 2);
-        if (!rotate)
-            return (ft_print_error());
-        rotate[0] = better[0][1];
-        //printf("Inicio búsqueda mejor opción.\n");
-        while (i < better[0][1])
-        {
-            if ((better[i][1] + i) < rotate[0])
-            {
-                //printf("mejor opción: %d\n", i);
-                rotate[0] = better[i][1] + i;
-                rotate[1] = better[i][0];
-            }
-            i++;
-        }
-        i = 0;
-        while (i < rotate[0])
-        {
-            ft_rotate_a(stack_a, moves, 'Y');
-            i++;
-        }
-        ft_lowest_number(ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a),
-            ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b), move);
-        /*printf("ft_returning_b = %d, ft_dist_a_down = %d, ft_dist_b_up = %d, ft_dist_b_down = %d\n",
-            ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a), ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b));*/
-        while (better[0][1]-- > 1)
-            free (better[better[0][1]]);
-        free (rotate);
-    //printf("Final\n");
+        return (0);
     }
+    free (move);
+    return (0);
+}
+
+int     ft_option_selection(t_element *stack_a, t_element *stack_b, int *moves, int *move)
+{
     switch (move[1])
     {
     case 1:
@@ -201,12 +139,7 @@ int    ft_case_selection(t_element *stack_a, t_element *stack_b, int *moves)
         return (-1);
         break;
     }
-    /*i = 0;
-    while (i < better[0][1])
-        free (better[i++]);
-    free (move);
-    free (better);
-    return (ft_print_error());*/
+    return (0);
 }
 
 void    ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves)
@@ -215,6 +148,7 @@ void    ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves)
     int b_elements;
     int *move;
 
+    printf("Returning from b.\n");
     i = 0;
     b_elements = ft_stack_last_element(stack_b);
     move = malloc(sizeof(int) * 2);
@@ -226,12 +160,11 @@ void    ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves)
     while (b_elements >= 0)
     {
         ft_lowest_number(ft_dist_b_to_a_up(stack_a, stack_b),
-            ft_dist_b_to_a_down(stack_a, stack_b), INT_MAX, INT_MAX, move);
+            ft_dist_b_to_a_down(stack_a, stack_b), -1, -1, move);
         if (move[1] == 1)
         {
             while (stack_b[0].pos > stack_a[0].pos)
-                ft_rotate_a(stack_a, moves, 'Y');
-            ft_push_a(stack_a, stack_b, moves);        
+                ft_rotate_a(stack_a, moves, 'Y');      
         }
         if (move[1] == 2)
         {
@@ -241,9 +174,208 @@ void    ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves)
                 ft_reverse_rotate_a(stack_a, moves, 'Y');
                 i--;
             }
-            ft_push_a(stack_a, stack_b, moves);
         }
+        ft_push_a(stack_a, stack_b, moves);
         b_elements = ft_stack_last_element(stack_b);
     }
     free (move);
+    return ;
+}
+
+int     ft_find_better(t_element *stack_a, t_element *stack_b, int *moves)
+{
+    int         i;
+    int         best[2];
+    int         *move;
+    int         **better;
+    t_element   *stack_temp;
+    
+    printf("find_better\n");
+    move = malloc(sizeof(int) * 2);
+    ft_lowest_number(ft_returning_b(stack_a, stack_b), ft_dist_a_down(stack_a),ft_dist_b_up(stack_a, stack_b), ft_dist_b_down(stack_a, stack_b), move);
+    better = malloc(sizeof(int *) * move[0]);
+    stack_temp = malloc(sizeof(t_element) * (ft_stack_last_element(stack_a) + 1));
+    if(!move || !stack_temp || !better)
+        return (ft_print_error());
+    ft_better_malloc( move, better);
+    printf("better_malloc.\n");
+    ft_stack_reduce(stack_a, stack_temp);
+    printf("stack_reduce.\n");
+    i = 0;
+    printf("better[0][1] = %d\n", better[0][1]);
+    ft_moves_next(stack_b, stack_temp, move, better);
+    printf("moves_next.\n");
+    ft_best_option(best, better);
+    printf("best[0] = i = %d    best[1] = moves = %d\n", best[0], best[1]);
+    ft_manage_best_options(stack_a, stack_b, best, better, moves);
+    printf("manage_best_options.\n");
+    i = 0;
+    while (i++ < best[0])
+        ft_reverse_rotate_a(stack_a, moves, 'Y');
+    ft_better_free(better);
+    printf("better_free.\n");
+    free(stack_temp);
+    printf("stack_temp.\n");
+    free(move);
+    printf("move.\n");
+    if(best[0] == 0)
+        return (-1);
+    return (0);
+}
+
+void    ft_manage_best_options(t_element *stack_a, t_element *stack_b,
+        int *best, int **better, int *moves)
+{
+    int i;
+
+    i = 0;
+    //printf("best[0] = %d best[1] = %d\n", best[0], best[1]);
+    //printf("better[best[0]][2] = %d\n", better[best[0]][2]);
+    if(best[0] == 0)
+        return ;
+    else if(better[best[0]][2] == 3 && best[1] > best[0])
+    {
+        while (i++ < best[0])
+            ft_swap_all(stack_a, stack_b, moves);
+        while (i++ < best[1])
+            ft_rotate_b(stack_b, moves, 'Y');
+        ft_push_b(stack_a, stack_b, moves);
+    }
+    else if(better[best[0]][2] == 3 && best[0] >= best[1])
+    {
+        while (i++ < best[1])
+            ft_swap_all(stack_a, stack_b, moves);
+        while (i++ < best[0])
+            ft_rotate_a(stack_a, moves, 'Y');
+        ft_push_b(stack_a, stack_b, moves);
+    }
+    else if(better[best[0]][2] == 4)
+        ft_no_synergies(stack_a, stack_b, best, moves);
+    return ;
+}
+
+void    ft_no_synergies(t_element *stack_a, t_element *stack_b,
+        int *best, int *moves)
+{
+    int i;
+
+    i = 0;
+    while (i++ < best[0])
+        ft_rotate_a(stack_a, moves, 'Y');
+    i = 0;
+    while (i++ < best[1] - 1)
+        ft_reverse_rotate_b(stack_b, moves, 'Y');
+    ft_push_b(stack_a, stack_b, moves);
+    return ;
+}
+
+void    ft_moves_next(t_element *stack_b, t_element *stack_temp,
+        int *move, int **better)
+{
+    int i;
+
+    i = 0;
+    while (i++ < better[0][1])
+    {
+        ft_lowest_number(INT_MAX, INT_MAX ,ft_dist_b_up(stack_temp, stack_b), ft_dist_b_down(stack_temp, stack_b), move);
+        better[i][0] = i;
+        better[i][1] = move[0];
+        better[i][2] = move[1];
+    //printf("i = %d better[%d][0] = %d better[%d][1] = %d better[%d][2] = %d\n", i, i, better[i][0], i, better[i][1], i, better[i][2]);
+        ft_stack_reduce(stack_temp, stack_temp);
+    }
+    
+}
+
+void    ft_stack_reduce(t_element *stack_a, t_element *stack_temp)
+{
+    int i;
+
+    i = 1;
+    while (i <= ft_stack_last_element(stack_a))
+    {
+        stack_temp[i - 1].pos = stack_a[i].pos;
+        stack_temp[i - 1].value = stack_a[i].value;
+        stack_temp[i - 1].empty = stack_a[i].empty;
+    //printf("stack_a[%d].pos = %d stack_a[%d].value = %d stack_a[%d].empty = %d\n", i, stack_a[i].pos, i, stack_a[i].value, i, stack_a[i].empty);
+    //printf("stack_temp[%d].pos = %d stack_temp[%d].value = %d stack_temp[%d].empty = %d\n", i - 1, stack_temp[i - 1].pos, i, stack_temp[i - 1].value, i, stack_temp[i - 1].empty);
+        i++;
+    }
+    stack_temp[i - 1].pos = -1;
+    stack_temp[i - 1].value = -1;
+    stack_temp[i - 1].empty= 'Y';
+    //printf("stack_temp[%d].pos = %d stack_temp[%d].value = %d stack_temp[%d].empty = %d\n", i - 1, stack_temp[i - 1].pos, i - 1, stack_temp[i - 1].value, i - 1, stack_temp[i - 1].empty);
+    return ;
+}
+
+void    ft_better_malloc(int *move, int **better)
+{
+    int i;
+
+    i = 0;
+    better[0] = malloc(sizeof(int) * 3);
+    better[0][0] = 0;
+    better[0][1] = move[0];
+    better[0][2] = move[1];
+    while (i++ < better[0][1])
+    {
+        better[i] = malloc(sizeof(int) * 3);
+        if (!better[i])
+            ft_print_error();
+    }
+    return ;
+}
+
+void    ft_better_free(int **better)
+{
+    int i;
+
+    printf("ft_better_free.\n");
+    i = better[0][1];
+    while (i-- > 0)
+    {
+        printf("i = %d better[0][1] = %d better[i] = better[%d]\n", i, better[0][1], i);
+        printf("i = %d better[i][0] = %d better[i][1] = %d better[i][2] =  %d\n", i, better[i][0], better[i][1], better[i][2]);
+        free(better[i]);
+    }
+    printf("ft_better_free.\n");
+    free(better);
+    printf("ft_better_free.\n");
+    return ;
+}
+
+void    ft_best_option(int *best, int **better)
+{
+    int i;
+    
+    //printf("best_option.\n");
+    i = 1;
+    best[0] = 0;
+    best[1] = better[0][1];
+    //printf("better[0][1] = %d\n", better[0][1]);
+    while (i <= better[0][1])
+    {
+    //printf("i = %d better[i][0] = %d better[i][1] = %d better[i][2] = %d\n", i, better[i][0], better[i][1], better[i][2]);
+        if(better[i][2] == 3 && 
+            better[i][1] > i && (i + better[i][1] + 1) < best[1])
+        {
+            best[0] = i;
+            best[1] = better[i][1];
+    //printf("1. better[0][1] = %d\n", better[0][1]);
+        }
+        else if(better[i][2] == 3 &&
+            better[i][1] <= i && (2 * i + 1) < best[1])
+        {
+            best[0] = i;
+            best[1] = better[i][1];
+    //printf("2. better[0][1] = %d\n", better[0][1]);
+        }
+        else if(better[i][2] == 4 && (2 * i + better[i][1] + 1) < best[1])
+        {
+            best[0] = i;
+            best[1] = better[i][1];
+    //printf("3. better[0][1] = %d\n", better[0][1]);
+        }
+        i++;
+    }
 }
