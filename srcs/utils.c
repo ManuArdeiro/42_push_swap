@@ -72,8 +72,6 @@ int     ft_hits_count(t_element *stack_a)
     {
         if (stack_a[i].pos < stack_a[i + 1].pos)
             hits++;
-        else
-            return (hits);
         i++;
     }
     return (hits);

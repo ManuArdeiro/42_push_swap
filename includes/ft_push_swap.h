@@ -70,7 +70,7 @@ void    ft_build_stack_a(int *stack, int *ordered, t_element *stack_a, int argc)
 int     main(int argc, char **argv);
 
 // File returning_from_b.c
-void	ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves);
+int		ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves, int argc);
 
 // File reverse_rotate.c
 void    ft_reverse_rotate_a(t_element *stack, int *moves, char print);

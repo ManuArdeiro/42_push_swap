@@ -14,20 +14,24 @@
 #include "../includes/42_ft_printf/includes/ft_printf.h"
 #include "../includes/42_libft/libft.h"
 
-void    ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves)
+int     ft_returning_from_b(t_element *stack_a, t_element *stack_b, int *moves)
 {
     int i;
     int b_elements;
+    int *max;
     int *move;
 
+    printf("Returning from b.\n");
     i = 0;
     b_elements = ft_stack_last_element(stack_b);
+    max = malloc(sizeof(int) * 2);
     move = malloc(sizeof(int) * 2);
-    if (!move)
+    if (!move || !max)
     {
         ft_print_error();
         return ;
     }
+    ft_stack_max(stack_a, max);
     while (b_elements >= 0)
     {
         ft_lowest_number(ft_dist_b_to_a_up(stack_a, stack_b),

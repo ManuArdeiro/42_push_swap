@@ -45,16 +45,20 @@ int     ft_dist_b_up(t_element *stack_a, t_element *stack_b)
     distance = 0;
     ft_stack_min(stack_b, min);
     ft_stack_max(stack_b, max);
-    if (stack_a[0].value < min[0])
+    if(stack_a[0].value < min[0])
         return (min[1] + 2);
-    else if (stack_a[0].value > max[0])
+    else if(stack_a[0].value > max[0])
         return (max[1] + 1);
+    else if(stack_a[0].pos > stack_b[0].pos && stack_a[0].pos < stack_b[ft_stack_last_element(stack_b)].pos)
+        return (1);
     else
     {
         while (distance++ < ft_stack_last_element(stack_b))
+        {
             if (stack_a[0].pos < stack_b[distance - 1].pos &&
                 stack_a[0].pos > stack_b[distance].pos)
                 return (distance + 1);
+        }
     }
     return (-1);
 }
