@@ -38,18 +38,34 @@ int     ft_dist_b_to_a_down(t_element *stack_a, t_element *stack_b);
 
 // File find_better_options.c
 int		ft_find_better(t_element *stack_a, t_element *stack_b, int *moves);
-void	ft_manage_best_options(t_element *stack_a, t_element *stack_b,
-	int *best, int **better, int *moves);
-void    ft_no_synergies(t_element *stack_a, t_element *stack_b,
-        int *best, int *moves);
 void    ft_moves_next(t_element *stack_b, t_element *stack_temp,
         int *move, int **better);
+void    ft_best_option(t_element *stack_a, t_element *stack_b, int *moves,
+		int *best, int **better);
+void	ft_manage_best_options(t_element *stack_a, t_element *stack_b,
+	int *best, int **better, int *moves);
+
+//File find_better-options_aux.c
+void    ft_manage_b_up_1(t_element *stack_a, t_element *stack_b, int *moves,
+        int *best);
+void    ft_manage_b_up_2(t_element *stack_a, t_element *stack_b, int *moves,
+        int *best);
+void    ft_no_synergies(t_element *stack_a, t_element *stack_b,
+        int *best, int *moves);
 
 // File managing_cases.c
 int 	ft_case_1(t_element *stack_a, t_element *stack_b, int *moves);
 int 	ft_case_2(t_element *stack_a, t_element *stack_b, int *moves);
 int 	ft_case_3(t_element *stack_a, t_element *stack_b, int *moves);
 int 	ft_case_4(t_element *stack_a, t_element *stack_b, int *moves);
+
+// File managing_cases_aux.c
+int 	ft_case_1_b(t_element *stack_a, t_element *stack_b, int *moves,
+		int *min, int *count);
+void    ft_case_1_c(t_element *stack_a, t_element *stack_b, int *moves,
+        int * min, int *count);
+void    ft_case_3_b(t_element *stack_a, t_element *stack_b, int *moves,
+        int *min, int *max);
 
 // File method.c
 int		ft_method(t_element *stack_a, t_element *stack_b, int *moves,
@@ -109,7 +125,6 @@ void    ft_stack_min(t_element *stack, int *min);
 void    ft_stack_max(t_element *stack, int *max);
 
 // File utils_2.c
-void    ft_best_option(int *best, int **better);
 void    ft_stack_reduce(t_element *stack_a, t_element *stack_temp);
 void    ft_better_malloc(int *move, int **better);
 void    ft_better_free(int **better);

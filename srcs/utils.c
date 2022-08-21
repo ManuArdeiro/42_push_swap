@@ -14,6 +14,8 @@
 #include "../includes/42_ft_printf/includes/ft_printf.h"
 #include "../includes/42_libft/libft.h"
 
+/*  ft_stack_last_element returns the last element position. */
+
 int     ft_stack_last_element(t_element *stack)
 {
     int i;
@@ -30,34 +32,37 @@ int     ft_print_error(void)
     return (-1);
 }
 
-void    ft_lowest_number(int number_1, int number_2, int number_3, int number_4, int *sol)
-{
-    int lowest;
-    int number;
+/*  ft_lowest_number returns the lowest number of arguments received and 
+    its position in sol pointer. */
 
+void    ft_lowest_number(int number_1, int number_2, int number_3,
+        int number_4, int *sol)
+{
+    sol[0] = INT_MAX;
+    sol[1] = -1;
     if (number_1 > 0)
     {
-        lowest = number_1;
-        number = 1;
+        sol[0] = number_1;
+        sol[1] = 1;
     }
-    if (number_2 < lowest && number_2 > 0)
+    if (number_2 < sol[0] && number_2 > 0)
     {
-        lowest = number_2;
-        number = 2;
+        sol[0] = number_2;
+        sol[1] = 2;
     }
-    if (number_3 < lowest && number_3 > 0)
+    if (number_3 < sol[0] && number_3 > 0)
     {
-        lowest = number_3;
-        number = 3;
+        sol[0] = number_3;
+        sol[1] = 3;
     }
-    if (number_4 < lowest && number_4 > 0)
+    if (number_4 < sol[0] && number_4 > 0)
     {
-        lowest = number_4;
-        number = 4;
+        sol[0] = number_4;
+        sol[1] = 4;
     }
-    sol[0] = lowest;
-    sol[1] = number;
 }
+
+/*  ft_hits_count returns the number of ordered elements in stack argument. */
 
 int     ft_hits_count(t_element *stack_a)
 {
@@ -76,6 +81,9 @@ int     ft_hits_count(t_element *stack_a)
     }
     return (hits);
 }
+
+/*  ft_stack_min returns the value and its position of the lowest element of
+    stack argument via min pointer.*/
 
 void    ft_stack_min(t_element *stack, int *min)
 {    
@@ -96,6 +104,9 @@ void    ft_stack_min(t_element *stack, int *min)
     }
     return ;
 }
+
+/*  ft_stack_max returns the value and its position of the biggest element of
+    stack argument via max pointer.*/
 
 void    ft_stack_max(t_element *stack, int *max)
 {    

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.sh                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2021/09/10 08:48:44 by lmartins         ###   ########.fr        #
+#    Updated: 2022/08/20 18:55:47 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,7 +149,7 @@ checker5()
 
 random_checker()
 {
-	echo -e "${RESET}$1"
+	echo "${RESET}$1"
 	if (($3 == 12));
 		then
 		FILE="log_error/five/test_"
@@ -175,11 +175,13 @@ random_checker()
 			else
 				ARG=`ruby -e "puts $2.to_a.shuffle.join(' ')"`
 			fi
+			echo "ARG = $ARG"
 			if (( $CKER == 1))
 			then
 				RET_CKER=`$PUSH_SWAP $ARG | $CHECKER $ARG`
 			fi
 			RET2=`$PUSH_SWAP $ARG | wc -l | bc`
+			echo "moves = $RET2"
 			if [ "$RET_CKER" != "OK" ];
 				then
 				((ERR++))
