@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2022/08/20 18:55:47 by marvin           ###   ########.fr        #
+#    Updated: 2022/08/21 18:50:25 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -175,13 +175,11 @@ random_checker()
 			else
 				ARG=`ruby -e "puts $2.to_a.shuffle.join(' ')"`
 			fi
-			echo "ARG = $ARG"
 			if (( $CKER == 1))
 			then
 				RET_CKER=`$PUSH_SWAP $ARG | $CHECKER $ARG`
 			fi
 			RET2=`$PUSH_SWAP $ARG | wc -l | bc`
-			echo "moves = $RET2"
 			if [ "$RET_CKER" != "OK" ];
 				then
 				((ERR++))

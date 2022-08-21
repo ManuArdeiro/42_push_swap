@@ -32,16 +32,11 @@ int     ft_dist_a_down(t_element *stack_a);
 int     ft_dist_b_up(t_element *stack_a, t_element *stack_b);
 int     ft_dist_b_down(t_element *stack_a, t_element *stack_b);
 
-// File b_distances.c
-int     ft_dist_b_to_a_up(t_element *stack_a, t_element *stack_b);
-int     ft_dist_b_to_a_down(t_element *stack_a, t_element *stack_b);
-
 // File find_better_options.c
 int		ft_find_better(t_element *stack_a, t_element *stack_b, int *moves);
 void    ft_moves_next(t_element *stack_b, t_element *stack_temp,
         int *move, int **better);
-void    ft_best_option(t_element *stack_a, t_element *stack_b, int *moves,
-		int *best, int **better);
+void    ft_best_option(int *best, int **better);
 void	ft_manage_best_options(t_element *stack_a, t_element *stack_b,
 	int *best, int **better, int *moves);
 
@@ -60,12 +55,11 @@ int 	ft_case_3(t_element *stack_a, t_element *stack_b, int *moves);
 int 	ft_case_4(t_element *stack_a, t_element *stack_b, int *moves);
 
 // File managing_cases_aux.c
-int 	ft_case_1_b(t_element *stack_a, t_element *stack_b, int *moves,
+void	ft_case_1_b(t_element *stack_a, t_element *stack_b, int *moves,
 		int *min, int *count);
 void    ft_case_1_c(t_element *stack_a, t_element *stack_b, int *moves,
-        int * min, int *count);
-void    ft_case_3_b(t_element *stack_a, t_element *stack_b, int *moves,
-        int *min, int *max);
+        int *count);
+void    ft_case_3_b(t_element *stack_a, t_element *stack_b, int *moves);
 
 // File method.c
 int		ft_method(t_element *stack_a, t_element *stack_b, int *moves,
@@ -81,6 +75,7 @@ void    ft_push_a(t_element *stack_a, t_element *stack_b, int *moves);
 
 // File push_swap.c
 int 	ft_read_stack(int argc, char **argv, int *stack);
+int		ft_ordering_stack(t_element *stack_a, int argc);
 int 	*ft_order_init_stack(int *stack, int *ordered, int argc);
 void    ft_build_stack_a(int *stack, int *ordered, t_element *stack_a, int argc);
 int     main(int argc, char **argv);
@@ -100,8 +95,6 @@ void    ft_rotate_b(t_element *stack_b, int *moves, char print);
 void    ft_rotate_all(t_element *stack_a, t_element *stack_b, int *moves);
 
 // File split_cases.c
-void    ft_init_stack_b(t_element *stack_b, int argc);
-int		ft_ordering_stack(t_element *stack_a, int argc);
 
 // File swap_movements.c
 void    ft_swap_a(t_element *stack, int *moves, char print);
@@ -128,5 +121,6 @@ void    ft_stack_max(t_element *stack, int *max);
 void    ft_stack_reduce(t_element *stack_a, t_element *stack_temp);
 void    ft_better_malloc(int *move, int **better);
 void    ft_better_free(int **better);
+void    ft_init_stack_b(t_element *stack_b, int argc);
 
 #endif

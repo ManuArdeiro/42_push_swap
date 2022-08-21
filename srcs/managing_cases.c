@@ -38,7 +38,7 @@ int     ft_case_1(t_element *stack_a, t_element *stack_b, int *moves)
     }
     ft_push_a(stack_a, stack_b, moves);
     ft_case_1_b(stack_a, stack_b, moves, min, &count);
-    ft_case_1_c(stack_a, stack_b, moves, min, &count);
+    ft_case_1_c(stack_a, stack_b, moves, &count);
     ft_rotate_a(stack_a, moves, 'Y');
     return (0);
 }
@@ -87,7 +87,7 @@ int     ft_case_3(t_element *stack_a, t_element *stack_b, int *moves)
         while (stack_b[0].value < max[0])
             ft_rotate_b(stack_b, moves, 'Y');
     else if (stack_a[0].value > min[0] && stack_a[0].value < max[0])
-        ft_case_3_b(stack_a, stack_b, moves, min, max);
+        ft_case_3_b(stack_a, stack_b, moves);
     ft_push_b(stack_a, stack_b, moves);
     return (0);    
 }

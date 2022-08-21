@@ -29,7 +29,7 @@ void    ft_case_1_b(t_element *stack_a, t_element *stack_b, int *moves,
         {
             ft_push_a(stack_a, stack_b, moves);
             count++;            
-            while (count > 0)
+            while (*count > 0)
             {
                 ft_rotate_a(stack_a, moves, 'Y');
                 count--;
@@ -42,9 +42,9 @@ void    ft_case_1_b(t_element *stack_a, t_element *stack_b, int *moves,
 }
 
 void    ft_case_1_c(t_element *stack_a, t_element *stack_b, int *moves,
-        int * min, int *count)
+        int *count)
 {
-    while (count > 0)
+    while (*count > 0)
     {
         ft_rotate_a(stack_a, moves, 'Y');
         while (stack_b[0].pos > stack_a[ft_stack_last_element(stack_a)].pos)
@@ -57,8 +57,7 @@ void    ft_case_1_c(t_element *stack_a, t_element *stack_b, int *moves,
     return ;
 }
 
-void    ft_case_3_b(t_element *stack_a, t_element *stack_b, int *moves,
-        int *min, int *max)
+void    ft_case_3_b(t_element *stack_a, t_element *stack_b, int *moves)
 {
     if (stack_a[0].pos < stack_b[0].pos)
         while (stack_a[0].pos < stack_b[0].pos)

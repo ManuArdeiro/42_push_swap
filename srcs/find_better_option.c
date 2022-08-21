@@ -42,7 +42,7 @@ int     ft_find_better(t_element *stack_a, t_element *stack_b, int *moves)
     ft_better_malloc(move, better);
     ft_stack_reduce(stack_a, stack_temp);
     ft_moves_next(stack_b, stack_temp, move, better);
-    ft_best_option(stack_a, stack_b, moves, best, better);
+    ft_best_option(best, better);
     ft_manage_best_options(stack_a, stack_b, best, better, moves);
     ft_better_free(better);
     free(stack_temp);
@@ -79,8 +79,7 @@ void    ft_moves_next(t_element *stack_b, t_element *stack_temp,
     }
 }
 
-void    ft_best_option(t_element *stack_a, t_element *stack_b, int *moves,
-        int *best, int **better)
+void    ft_best_option(int *best, int **better)
 {
     int i;
     

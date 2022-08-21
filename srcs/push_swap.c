@@ -16,14 +16,15 @@
 
 /*  Main function:
     1.  Allocating memory
-    2.  Reading the initial number series (ft_read_stack function)  and save it to
-        stack int pointer.
-    3.  Ordering the initial stack (ft_order_init_stack function) to know the final
-        position of each number.
-    4.  Building stack a with the complete series numbers, their positions and a
-        field to know how many "gaps"" there are in stack a (ft_build_stack_a function).
-    5.  Finally main function calls to ft_ordering_stack function (split_cases.c file),
-        deallocate memory and return 0 if no errors.
+    2.  Reading the initial number series (ft_read_stack function)  and save it
+    to stack int pointer.
+    3.  Ordering the initial stack (ft_order_init_stack function) to know the
+        final position of each number.
+    4.  Building stack a with the complete series numbers, their positions and
+        a field to know how many "gaps"" there are in stack a (ft_build_stack_a
+        function).
+    5.  Finally main function calls to ft_ordering_stack function (split_cases.c
+        file), deallocate memory and return 0 if no errors.
 */
 
 int main(int argc, char **argv)
@@ -47,23 +48,47 @@ int main(int argc, char **argv)
     ordered = ft_order_init_stack(stack, ordered, argc);
     ft_build_stack_a(stack, ordered, stack_a, argc);
     sol = ft_ordering_stack(stack_a, argc);
-                                /*i = 0;
-                                while (i < argc - 1)
-                                {
-                                    ft_printf("Stack A -> i = %d value = %d pos = %d empty = %c\n",
-                                    i, stack_a[i].value, stack_a[i].pos, stack_a[i].empty);
-                                    i++;
-                                }*/
     free (stack);
     free (ordered);
     free (stack_a);
     return (sol);
 }
 
+/*  ft_ordering_stack function:
+    1.  Allocating memory for stack b.
+    2.  Creating stack b with empty elements (same number than initial stack
+        numbers).
+    3.  Depending on the elements number it calls to ft_three_elements function
+        (elements < 4) or ft_method function.
+    4.  Deallocating stack b memory and returning 0 to main if no errors. */
+
+int    ft_ordering_stack(t_element *stack_a, int argc)
+{
+    t_element   *stack_b;
+    int         moves;
+    
+    moves = 0;
+    stack_b = malloc(sizeof(t_element) * argc);
+    if (!stack_b)
+        return (ft_print_error());
+    ft_init_stack_b(stack_b, argc);
+    if (argc > 4)
+    {
+        if (ft_method(stack_a, stack_b, &moves, argc) == -1)
+            return (-1);
+    }
+    else if (argc <= 4)
+        ft_three_elements(stack_a, stack_b, &moves, argc);
+    free (stack_b);
+    return (0);
+}
+
+/*  function to get the main arguments and place them in stack a. */
+
 int ft_read_stack(int argc, char **argv, int *stack)
 {
-    int             i;
-    int             j;
+    int    i;
+    int    j;
     long   atoi;
 
     i = 0;
@@ -72,7 +97,8 @@ int ft_read_stack(int argc, char **argv, int *stack)
         j = 0;
         while (argv[i + 1][j] != 0)
         {
-            if (((argv[i + 1][j] >= 43 && argv[i + 1][j] <= 46) || (argv[i + 1][j] >= 48 && argv[i + 1][j] <= 57)) == 0)
+            if (((argv[i + 1][j] >= 43 && argv[i + 1][j] <= 46) ||
+                (argv[i + 1][j] >= 48 && argv[i + 1][j] <= 57)) == 0)
                 return (ft_print_error());
             j++;
         }
@@ -88,6 +114,8 @@ int ft_read_stack(int argc, char **argv, int *stack)
     }
     return (0);
 }
+
+/*  function to order the arguments, i.e., the initial stack . */
 
 int *ft_order_init_stack(int *stack, int *ordered, int argc)
 {
@@ -117,7 +145,10 @@ int *ft_order_init_stack(int *stack, int *ordered, int argc)
     return (ordered);
 }
 
-void    ft_build_stack_a(int *stack, int *ordered, t_element *stack_a, int argc)
+/*  function to build stack a. */
+
+void    ft_build_stack_a(int *stack, int *ordered,
+        t_element *stack_a, int argc)
 {
     int i;
     int j;

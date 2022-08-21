@@ -14,6 +14,9 @@
 #include "../includes/42_ft_printf/includes/ft_printf.h"
 #include "../includes/42_libft/libft.h"
 
+/*  ft_dist_b_to_a_up calculates the number of movements needed to move the
+    first element from stack b to stack a into the b properly position. */
+
 int     ft_dist_b_to_a_up(t_element *stack_a, t_element *stack_b)
 {
     int i;

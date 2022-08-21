@@ -15,16 +15,19 @@ NAME 		= push_swap
 BONUS_NAME	= checker
 
 SRCS 		= srcs/a_distances.c \
-			srcs/b_distances.c \
+			srcs/find_better_option_aux.c \
+			srcs/find_better_option.c \
+			srcs/managing_cases_aux.c \
 			srcs/managing_cases.c \
 			srcs/method.c \
 			srcs/push_movements.c \
 			srcs/push_swap.c \
+			srcs/returning_from_b.c \
 			srcs/reverse_rotate.c \
 			srcs/rotate.c \
-			srcs/split_cases.c \
 			srcs/swap_movements.c \
 			srcs/three_elements.c \
+			srcs/utils_2.c \
 			srcs/utils.c \
 
 BONUS		= srcs/checker/checker.c

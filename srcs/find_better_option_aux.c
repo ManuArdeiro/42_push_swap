@@ -14,6 +14,8 @@
 #include "../includes/42_ft_printf/includes/ft_printf.h"
 #include "../includes/42_libft/libft.h"
 
+/*  Aux functions to finding better option. */
+
 void    ft_manage_b_up_1(t_element *stack_a, t_element *stack_b, int *moves,
         int *best)
 {
