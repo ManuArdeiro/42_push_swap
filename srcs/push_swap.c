@@ -115,7 +115,7 @@ int ft_read_stack(int argc, char **argv, int *stack)
     return (0);
 }
 
-/*  function to order the arguments, i.e., the initial stack . */
+/*  function to order the arguments, i.e., the initial stack. */
 
 int *ft_order_init_stack(int *stack, int *ordered, int argc)
 {

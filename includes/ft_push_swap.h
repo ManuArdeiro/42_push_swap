@@ -113,7 +113,6 @@ int     ft_stack_last_element(t_element *stack);
 int 	ft_print_error(void);
 void	ft_lowest_number(int number_1, int number_2, int number_3,
 		int number_4, int *sol);
-int     ft_hits_count(t_element *stack_a);
 void    ft_stack_min(t_element *stack, int *min);
 void    ft_stack_max(t_element *stack, int *max);
 
@@ -122,5 +121,6 @@ void    ft_stack_reduce(t_element *stack_a, t_element *stack_temp);
 void    ft_better_malloc(int *move, int **better);
 void    ft_better_free(int **better);
 void    ft_init_stack_b(t_element *stack_b, int argc);
+int     ft_hits_count(t_element *stack_a);
 
 #endif

@@ -86,3 +86,23 @@ void    ft_init_stack_b(t_element *stack_b, int argc)
     }
     return ;
 }
+
+/*  ft_hits_count returns the number of ordered elements in stack argument. */
+
+int     ft_hits_count(t_element *stack_a)
+{
+    int i;
+    int a_elements;
+    int hits;
+
+    i = 0;
+    hits = 0;
+    a_elements = ft_stack_last_element(stack_a);
+    while (i < a_elements)
+    {
+        if (stack_a[i].pos < stack_a[i + 1].pos)
+            hits++;
+        i++;
+    }
+    return (hits);
+}

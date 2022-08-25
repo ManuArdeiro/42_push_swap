@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 16:53:09 by lfrasson          #+#    #+#              #
-#    Updated: 2022/08/21 18:50:25 by marvin           ###   ########.fr        #
+#    Updated: 2022/08/21 20:17:42 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,7 +149,7 @@ checker5()
 
 random_checker()
 {
-	echo "${RESET}$1"
+	echo -e "${RESET}$1"
 	if (($3 == 12));
 		then
 		FILE="log_error/five/test_"
