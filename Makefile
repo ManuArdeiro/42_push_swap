@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jolopez- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jolopez- <jolopez-@student.42madrid>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/27 21:33:28 by jolopez-          #+#    #+#              #
-#    Updated: 2022/06/28 14:49:48 by jolopez-         ###   ########.fr        #
+#    Updated: 2022/10/19 18:56:34 by jolopez-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ $(NAME):	$(OBJS)
 			make -C includes/42_libft
 			make -C includes/42_ft_printf
 			@echo "$(YELLOW) Creating push_swap... $(WHITE)"
-			${CC} $(CFLAGS) -o ${NAME} ${OBJS} $(LIBS)
+			${CC} $(CFLAGS) ${OBJS} $(LIBS) -o ${NAME}
 			@echo "$(GREEN) Done..."			
 			
 bonus:		$(NAME)
